@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
+//  COMPONENTS
+import Wrapper from "./components/Wrapper/Wrapper";
+import Card from "./components/Card/Card";
+
+// FUNCTION
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [toDoList, setListItem] = useState([
+		"Learn Javascript",
+		"Learn React",
+		"Learn Components",
+		"Improve FrontEnd Skills",
+	]);
+
+	const insertNewInput = (data) => {
+		if (data === "") {
+			alert("You didn't tap any task.");
+		} else {
+			setListItem([...toDoList, data]);
+		}
+	};
+
+	const deleteItem = (index) => {
+		let newToDoList = [...toDoList];
+		newToDoList.splice(index, 1);
+		setListItem(newToDoList);
+	};
+
+	return (
+		<Wrapper>
+			<Card
+				list={toDoList}
+				insertNewInput={insertNewInput}
+				deleteItem={deleteItem}
+			/>
+		</Wrapper>
+	);
 }
 
 export default App;
